@@ -1,6 +1,6 @@
 defaults: &defaults
   fog_provider: "Google"
-  google_json_key_location: 'gcs.json'
+  google_key_location: 'gcs.json'
   google_project: 'some-project'
 
 development:

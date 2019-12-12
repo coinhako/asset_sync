@@ -46,7 +46,7 @@ module AssetSync
 
     # Google Storage
     attr_accessor :google_storage_secret_access_key, :google_storage_access_key_id  # when using S3 interop
-    attr_accessor :google_json_key_location # when using service accounts
+    attr_accessor :google_key_location # when using service accounts
     attr_accessor :google_project # when using service accounts
 
     # Azure Blob with Fog::AzureRM
@@ -64,7 +64,7 @@ module AssetSync
     validates :rackspace_api_key,     :presence => true, :if => :rackspace?
     validates :google_storage_secret_access_key,  :presence => true, :if => :google_interop?
     validates :google_storage_access_key_id,      :presence => true, :if => :google_interop?
-    validates :google_json_key_location,          :presence => true, :if => :google_service_account?
+    validates :google_key_location,          :presence => true, :if => :google_service_account?
     validates :google_project,                    :presence => true, :if => :google_service_account?
 
     def initialize
@@ -136,11 +136,11 @@ module AssetSync
     end
 
     def google_interop?
-      google? && google_json_key_location.nil?
+      google? && google_key_location.nil?
     end
 
     def google_service_account?
-      google? && google_json_key_location
+      google? && google_key_location
     end
 
     def azure_rm?
@@ -190,7 +190,7 @@ module AssetSync
       self.rackspace_username     = yml["rackspace_username"]
       self.rackspace_auth_url     = yml["rackspace_auth_url"] if yml.has_key?("rackspace_auth_url")
       self.rackspace_api_key      = yml["rackspace_api_key"]
-      self.google_json_key_location = yml["google_json_key_location"] if yml.has_key?("google_json_key_location")
+      self.google_key_location = yml["google_key_location"] if yml.has_key?("google_key_location")
       self.google_project = yml["google_project"] if yml.has_key?("google_project")
       self.google_storage_secret_access_key = yml["google_storage_secret_access_key"] if yml.has_key?("google_storage_secret_access_key")
       self.google_storage_access_key_id     = yml["google_storage_access_key_id"] if yml.has_key?("google_storage_access_key_id")
@@ -253,8 +253,8 @@ module AssetSync
         options.merge!({ :rackspace_region => fog_region }) if fog_region
         options.merge!({ :rackspace_auth_url => rackspace_auth_url }) if rackspace_auth_url
       elsif google?
-        if google_json_key_location
-          options.merge!({:google_json_key_location => google_json_key_location, :google_project => google_project})
+        if google_key_location
+          options.merge!({:google_key_location => google_key_location, :google_project => google_project})
         else
           options.merge!({
             :google_storage_secret_access_key => google_storage_secret_access_key,

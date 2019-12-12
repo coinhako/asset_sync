@@ -61,7 +61,7 @@ describe AssetSync do
         expect(AssetSync.config.fog_options).to eq(expected_fog_options)
       end
 
-      it "should not require that google_json_key_location be set" do
+      it "should not require that google_key_location be set" do
         expect(AssetSync.config.valid?).to eq(true)
       end
 
@@ -79,17 +79,17 @@ describe AssetSync do
     describe "when using service account" do
       before(:each) do
         AssetSync.configure do |config|
-          config.google_json_key_location = '/path/to.json'
+          config.google_key_location = '/path/to.json'
           config.google_project = 'a-google-project-name'
         end
       end
 
-      it "should configure google_json_key_location" do
-        expect(AssetSync.config.google_json_key_location).to eq("/path/to.json")
+      it "should configure google_key_location" do
+        expect(AssetSync.config.google_key_location).to eq("/path/to.json")
       end
 
       it "should return the correct fog_options" do
-        expected_fog_options = { google_json_key_location: "/path/to.json",
+        expected_fog_options = { google_key_location: "/path/to.json",
                                  google_project: 'a-google-project-name',
                                 provider: "Google"}
         expect(AssetSync.config.fog_options).to eq(expected_fog_options)
@@ -116,8 +116,8 @@ describe AssetSync do
         expect(AssetSync.config.google_storage_secret_access_key).to eq("zzzz")
       end
 
-      it "should not configure google_json_key_location" do
-        expect(AssetSync.config.google_json_key_location).to eq(nil)
+      it "should not configure google_key_location" do
+        expect(AssetSync.config.google_key_location).to eq(nil)
       end
 
       it "should configure fog_directory" do
@@ -143,8 +143,8 @@ describe AssetSync do
         AssetSync.config = AssetSync::Config.new
       end
 
-      it "should configure google_json_key_location" do
-        expect(AssetSync.config.google_json_key_location).to eq("gcs.json")
+      it "should configure google_key_location" do
+        expect(AssetSync.config.google_key_location).to eq("gcs.json")
       end
 
       it "should not configure google_storage_secret_access_key" do
