@@ -23,6 +23,7 @@ module AssetSync
 
           config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID'] if ENV.has_key?('AWS_ACCESS_KEY_ID')
           config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY'] if ENV.has_key?('AWS_SECRET_ACCESS_KEY')
+          config.aws_session_token = ENV['AWS_SESSION_TOKEN'] if ENV.has_key?('AWS_SESSION_TOKEN')
           config.aws_signature_version = ENV['AWS_SIGNATURE_VERSION'] if ENV.has_key?('AWS_SIGNATURE_VERSION')
           config.aws_reduced_redundancy = ENV['AWS_REDUCED_REDUNDANCY'] == true  if ENV.has_key?('AWS_REDUCED_REDUNDANCY')
 
@@ -42,6 +43,8 @@ module AssetSync
           config.gzip_compression = (ENV['ASSET_SYNC_GZIP_COMPRESSION'] == 'true') if ENV.has_key?('ASSET_SYNC_GZIP_COMPRESSION')
           config.manifest = (ENV['ASSET_SYNC_MANIFEST'] == 'true') if ENV.has_key?('ASSET_SYNC_MANIFEST')
           config.include_manifest = (ENV['ASSET_SYNC_INCLUDE_MANIFEST'] == 'true') if ENV.has_key?('ASSET_SYNC_INCLUDE_MANIFEST')
+          config.concurrent_uploads = (ENV['ASSET_SYNC_CONCURRENT_UPLOADS'] == 'true') if ENV.has_key?('ASSET_SYNC_CONCURRENT_UPLOADS')
+          config.remote_file_list_cache_file_path = ENV['ASSET_SYNC_REMOTE_FILE_LIST_CACHE_FILE_PATH'] if ENV.has_key?('ASSET_SYNC_REMOTE_FILE_LIST_CACHE_FILE_PATH')
         end
 
         config.prefix = ENV['ASSET_SYNC_PREFIX'] if ENV.has_key?('ASSET_SYNC_PREFIX')
